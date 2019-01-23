@@ -1,0 +1,109 @@
+@import './style/index';
+
+:global {
+  html,
+  body,
+  #root {
+    height: 100%;
+
+    .tableList {
+      .tableListOperator {
+        margin: 12px 0;
+
+        button {
+          margin-right: 8px;
+        }
+      }
+    }
+
+    .operatorContainer {
+      a {
+        margin: 0 6px;
+      }
+    }
+
+    .searchBtn {
+      display: inline-block;
+      margin-bottom: 12px;
+
+      button {
+        margin-right: 8px;
+      }
+    }
+
+    .searchForm {
+      .ant-form-item {
+        margin-bottom: 24px;
+        margin-right: 0;
+        display: flex;
+        > .ant-form-item-label {
+          width: auto;
+          line-height: 32px;
+          padding-right: 8px;
+        }
+
+        .ant-form-item-control {
+          line-height: 32px;
+        }
+      }
+
+      .ant-form-item-control-wrapper {
+        flex: 1;
+      }
+
+      .rightSearchButtons {
+        overflow: hidden;
+
+        > span {
+          float: right;
+          margin-bottom: 24px;
+        }
+      }
+    }
+
+    .blockRadio {
+      display: block;
+      height: 30px;
+      line-height: 30px;
+    }
+
+    .amount {
+      color: @red-6;
+    }
+  }
+
+  .ant-confirm-content {
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .ant-select-dropdown {
+    z-index: 99999 !important;
+  }
+
+  .dynamic-delete-button {
+    cursor: pointer;
+    position: relative;
+    top: 4px;
+    font-size: 24px;
+    color: #999;
+    transition: all 0.3s;
+  }
+
+  .dynamic-delete-button:hover {
+    color: #777;
+  }
+
+  .dynamic-delete-button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.operBtn {
+  .ant-btn {
+    margin-right: 8px;
+    margin-bottom: 12px;
+  }
+}

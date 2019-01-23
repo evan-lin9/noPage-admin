@@ -1,0 +1,34 @@
+{
+  "extends": ["tslint:latest", "tslint-react", "tslint-config-prettier"],
+  "rules": {
+    "no-console": [
+      false,
+      "log",
+      "error",
+      "debug",
+      "info",
+      "time",
+      "timeEnd",
+      "trace"
+    ],
+    "object-literal-sort-keys": false,
+    "interface-name": true,
+    "ordered-imports": false,
+    "member-access": false,
+    "jsx-no-lambda": false,
+    "jsx-boolean-value": false,
+    "no-unused-expression": [true, "allow-fast-null-checks", "allow-new", "allow-tagged-template"],
+    "no-var-requires": false,
+    "no-submodule-imports": false,
+    "no-implicit-dependencies": false,
+    "no-shadowed-variable": false,
+    "one-variable-per-declaration": false,
+    "no-string-literal": false
+  },
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts"
+    ]
+  }
+}
