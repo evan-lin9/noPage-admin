@@ -1,4 +1,5 @@
-import { IGlobalState } from 'models/global'
+import { IGlobalState } from 'models/global';
+import { IStepState } from 'pages/form/models/step';
 
 export interface IPagination {
   total: number;
@@ -14,4 +15,5 @@ export interface IModelMap {
   };
   global: IGlobalState;
   page: any;
+  step: IStepState;
 }
