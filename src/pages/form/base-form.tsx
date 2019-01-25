@@ -1,6 +1,7 @@
 import React from 'react';
 import Form, { FormItem } from 'noform';
-import { Input } from 'nowrapper/lib/antd';
+// import { Input } from 'utils/nopage';
+import { Input } from 'antd';
 // import {
 //   Checkbox,
 //   DatePicker,

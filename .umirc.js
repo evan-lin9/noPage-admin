@@ -8,7 +8,6 @@ export default {
     'utils': resolve(__dirname, 'src/utils'),
     'models': resolve(__dirname, 'src/models'),
     'services': resolve(__dirname, 'src/services'),
-    'noform-components': resolve(__dirname, 'src/utils/noform'),
   },
   extraBabelPlugins: [
     ['wrapper', {}],
