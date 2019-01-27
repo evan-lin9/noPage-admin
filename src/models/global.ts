@@ -23,7 +23,7 @@ export interface IGlobalState {
   collapsed: boolean;
   userInfo: IUserInfo;
   authority: {[key: string]: {}};
-  menu: any;
+  menu: IMenuData[];
 }
 const loginInfo = sessionStorage.loginInfo ? JSON.parse(sessionStorage.loginInfo) : {};
 const global: Model = {
@@ -43,13 +43,14 @@ const global: Model = {
       const { username, password } = payload;
 
       if (username === 'admin' && password === '123456') {
-        const { menu, } = getInfo;
+        const { menu, userInfo } = getInfo;
         const info = {
           authority: {
             '/': {}, // 首页权限
             ...getInfo.authority,
           },
           login: true,
+          userInfo,
           menu,
         };
         sessionStorage.loginInfo = JSON.stringify(info);
@@ -87,12 +88,12 @@ const global: Model = {
     },
 
     changeLoginStatus(state, { payload }) {
-      const { login, adminInfo = {}, menu = [], authority = {} } = payload;
+      const { login, userInfo = {}, menu = [], authority = {} } = payload;
 
       return {
         ...state,
         login,
-        adminInfo,
+        userInfo,
         menu,
         authority,
       };

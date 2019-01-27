@@ -38,8 +38,8 @@ export const authority = {
 };
 
 export const getInfo = {
-  adminInfo: {
-    nickName: '管里员',
+  userInfo: {
+    name: '管里员',
     mobile: 13981234567,
     email: '123456@qq.com',
   },

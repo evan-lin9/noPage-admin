@@ -5,12 +5,10 @@ import classNames from 'classnames';
 import { ContainerQuery } from 'react-container-query';
 import DocumentTitle from 'react-document-title';
 import { Layout } from 'antd';
-import GlobalHeader from 'components/GlobalHeader';
-import GlobalFooter from 'components/GlobalFooter';
-import SliderMenu from 'components/SliderMenu';
+import { GlobalHeader, GlobalFooter, SliderMenu } from 'components';
+import { IGlobalState } from 'models/global';
+import { IModelMap } from 'utils/interface';
 import avatar from '../../assets/avatar.png';
-import { IGlobalState } from '../../models/global';
-import { IModelMap } from '../../utils/interface';
 
 const { Content, Header, Footer } = Layout;
 
@@ -72,25 +70,15 @@ export default connect(({ global }: IModelMap) => global)((props: IProps) => {
 
   const getPageTitle = (pathname: string) => {
     console.log(pathname);
-    // const currRouterData = matchParamsPath(pathname);
-    //
-    // if (!currRouterData) {
-    //   return title;
-    // }
-    // const pageName = formatMessage({
-    //   id: currRouterData.locale || currRouterData.name,
-    //   defaultMessage: currRouterData.name,
-    // });
-    //
-    // return `${pageName} - ${title}`;
-    return 'title'
+    // 根据 pathname 改变 tittle
+    // to do
+    return 'noPage-admin'
   };
 
   const layout = (
     <Layout>
       <SliderMenu
-        {...props}
-        menuData={menu}
+        menu={menu}
         collapsed={collapsed}
         location={location}
         onCollapse={handleMenuCollapse}
