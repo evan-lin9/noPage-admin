@@ -9,6 +9,11 @@ const menu = [
         id: 11,
         name: '基本表单',
         path: '/form/base-form',
+      },
+      {
+        id: 11,
+        name: '分步表单',
+        path: '/form/step-form',
       }
     ]
   },
