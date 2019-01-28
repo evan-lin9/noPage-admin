@@ -34,7 +34,6 @@ export default connect(({ step }: IModelMap) => step)((props: IModelMap['step'])
         <Step title="注册" icon={<Icon type="user" />} />
         <Step title="添加收货地址" icon={<Icon type="environment" />} />
         <Step title="绑定银行卡" icon={<Icon type="solution" />} />
-        <Step title="付款" icon={<Icon type="loading" />} />
       </Steps>
       <div className={styles['step-content']}>
         {getCurrentCom()}

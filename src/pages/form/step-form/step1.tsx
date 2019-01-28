@@ -63,7 +63,7 @@ export default connect(({ step, loading }: IModelMap) => ({
       <FormItem label='账号' name='username' required>
         <Input placeholder='请输入账号' />
       </FormItem>
-      <FormItem label='密码' name='password' required>
+      <FormItem label='密码' name='password' help={<span style={{ color: 'rgba(0,0,0,.45)' }}>密码一定不能告诉别人喔！</span>} required>
         <Input type='password' placeholder='请输入密码' />
       </FormItem>
       <FormItem label='确认密码' name='confirmPassword' required>

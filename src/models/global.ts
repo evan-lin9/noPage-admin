@@ -4,7 +4,9 @@ import { getInfo } from '../../mock/login';
 
 interface IUserInfo {
   name: string;
+  mobile: string;
   avatar: string;
+  countryCode: number;
 }
 
 export interface IMenuData {

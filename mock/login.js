@@ -11,9 +11,14 @@ const menu = [
         path: '/form/base-form',
       },
       {
-        id: 11,
+        id: 12,
         name: '分步表单',
         path: '/form/step-form',
+      },
+      {
+        id: 13,
+        name: '高级表单',
+        path: '/form/advanced-form'
       }
     ]
   },
@@ -40,8 +45,9 @@ export const authority = {
 export const getInfo = {
   userInfo: {
     name: '管里员',
-    mobile: 13981234567,
+    mobile: '13981234567',
     email: '123456@qq.com',
+    countryCode: 86,
   },
   authority,
   menu,

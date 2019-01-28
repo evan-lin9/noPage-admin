@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect, SubscriptionAPI } from 'dva';
-import { Button } from 'antd';
+import { Button, Tag } from 'antd';
 import { Cascader, Form, FormCore, FormItem, Input } from 'utils/nopage';
 
 interface IProps extends SubscriptionAPI {
@@ -65,8 +65,8 @@ const options = [
       label: '成都市',
       children: [
         {
-          value: 'zhonghuamen',
-          label: 'Zhong Hua Men',
+          value: '211',
+          label: '天府新区',
         }
       ],
     }
@@ -123,7 +123,25 @@ export default connect()((props: IProps) => {
       <FormItem label='手机号' name='consigneeMobile' required>
         <Input placeholder='手机号' />
       </FormItem>
-      <FormItem label='地址别名' name='addressAlias'>
+      <FormItem
+        label='地址别名'
+        name='addressAlias'
+        help={<span style={{ color: 'rgba(0,0,0,.45)' }}>建议填写常用名称！</span>}
+        suffix={
+          <span>
+            {
+              ['家', '公司', '父母家'].map((item, index) =>
+                <Tag
+                  key={index}
+                  onClick={() => {core.setValues('addressAlias', item)}}
+                >
+                  {item}
+                </Tag>
+              )
+            }
+          </span>
+        }
+      >
         <Input placeholder='地址别名' />
       </FormItem>
       <FormItem>

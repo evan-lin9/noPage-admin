@@ -14,16 +14,24 @@ export interface IRegisteredForm {
 
 export interface IAddressForm {
   consignee: string;
-  area: string;
+  area: string[];
   detailAddress: string;
   consigneeMobile: string;
   addressAlias?: string
+}
+
+export interface IBankcardForm {
+  name: string;
+  cardNumber: string;
+  mobile: string;
+  verifyCode: number;
 }
 
 export interface IStepState {
   currentStep: number;
   registeredForm: IRegisteredForm;
   addressForm: IAddressForm;
+  bankcardInfo: IBankcardForm;
 }
 
 const finishSubmitForm = async (time: number) => {
@@ -37,6 +45,7 @@ const step: Model = {
     currentStep: 0,
     registeredForm: {},
     addressForm: {},
+    bankcardInfo: {},
   },
 
   effects: {
@@ -55,7 +64,16 @@ const step: Model = {
         type: 'saveStep2',
         payload
       });
-      message.success('注册成功');
+      message.success('添加成功');
+    },
+
+    *bindBankcard({ payload }, { call, put }) {
+      yield call(finishSubmitForm, 600);
+      yield put({
+        type: 'saveStep3',
+        payload
+      });
+      message.success('绑定成功');
     },
   },
 
@@ -75,6 +93,16 @@ const step: Model = {
       return {
         ...state,
         currentStep: 2,
+        addressForm: {
+          ...state.addressForm,
+          ...payload,
+        },
+      };
+    },
+
+    saveStep3(state, { payload }) {
+      return {
+        ...state,
         addressForm: {
           ...state.addressForm,
           ...payload,

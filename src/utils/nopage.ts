@@ -17,8 +17,8 @@ import {
   TimePicker,
 } from 'nowrapper/lib/antd';
 import { InlineRepeater, TableRepeater } from 'nowrapper/lib/antd/repeater';
+import { DialogForm } from 'components';
 // import { Upload } from 'components';
-// import DialogForm from 'components/DialogForm';
 
 export {
   AutoComplete,
@@ -26,6 +26,7 @@ export {
   Checkbox,
   DatePicker,
   Dialog,
+  DialogForm,
   Form,
   FormCore,
   FormItem,

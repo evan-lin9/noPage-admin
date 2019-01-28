@@ -4,14 +4,19 @@ import Redirect from 'umi/redirect';
 import classNames from 'classnames';
 import { ContainerQuery } from 'react-container-query';
 import DocumentTitle from 'react-document-title';
-import { Layout } from 'antd';
-import { GlobalHeader, GlobalFooter, SliderMenu } from 'components';
+import { Layout, Row, Col, notification } from 'antd';
+import { Form, FormCore, FormItem, Input, DialogForm } from 'utils/nopage';
+import { GlobalHeader, GlobalFooter, SliderMenu, CountDown } from 'components';
 import { IGlobalState } from 'models/global';
 import { IModelMap } from 'utils/interface';
-import avatar from '../../assets/avatar.png';
+import avatar from 'assets/avatar.png';
+
+interface IProps extends SubscriptionAPI, IGlobalState {
+  location: Location;
+  children?: ReactNode;
+}
 
 const { Content, Header, Footer } = Layout;
-
 const query = {
   'screen-xs': {
     maxWidth: 575,
@@ -32,15 +37,16 @@ const query = {
     minWidth: 1200,
   },
 };
-
-interface IProps extends SubscriptionAPI, IGlobalState {
-  location: Location;
-  children?: ReactNode;
-}
+const core = new FormCore({
+  validateConfig: {
+    verifyCode: [{ required: true, message: '请输入验证码' }],
+    newPassword: [{ required: true, message: '请输入新密码' }],
+  },
+});
 
 export default connect(({ global }: IModelMap) => global)((props: IProps) => {
   const {
-    userInfo: { name },
+    userInfo: { name, mobile, countryCode = 86 },
     collapsed,
     location,
     menu,
@@ -64,8 +70,89 @@ export default connect(({ global }: IModelMap) => global)((props: IProps) => {
         type: 'global/logout',
       });
     } else if (key === 'changePassword') {
-      // onChangePassword();
+      onChangePassword();
     }
+  };
+
+  const onChangePassword = () => {
+    const onOk = (values: any, hide: () => void) => {
+      core.validate((errors: any) => {
+        if (!errors) {
+          props.dispatch({
+            type: 'global/changePassword',
+            payload: values,
+            callback: () => {
+              hide();
+              props.dispatch({
+                type: 'global/logout',
+              });
+            },
+          });
+        }
+      });
+    };
+
+    const onClickSending = async (): Promise<boolean> => {
+      const hasError = await core.validateItem('mobile');
+      const flag = !hasError;
+      if (flag) {
+        await setTimeout(() => {
+          notification.open({
+            duration: 2,
+            message: '短信验证码',
+            description: 666666,
+          });
+        }, 300)
+      }
+      return flag;
+    };
+
+    core.setValues({
+      mobile,
+      countryCode,
+      verifyCode: '',
+      newPassword: '',
+    });
+
+    DialogForm.show({
+      title: '修改密码',
+      width: 600,
+      onOk,
+      content: (
+        <Form core={core}>
+          <Row style={{ marginTop: '12px', marginBottom: '12px' }}>
+            <Col span={5}>
+              <FormItem name="countryCode" label="区号" status="disabled" defaultMinWidth={false}>
+                <Input style={{ width: 50 }} />
+              </FormItem>
+            </Col>
+            <Col span={9}>
+              <FormItem
+                name="mobile"
+                label="手机号"
+                status="disabled"
+                defaultMinWidth={false}
+              >
+                <Input style={{ width: 120 }} />
+              </FormItem>
+            </Col>
+            <Col span={7}>
+              <FormItem>
+                <CountDown
+                  duration={60}
+                  onClickSending={onClickSending} />
+                </FormItem>
+            </Col>
+          </Row>
+          <FormItem name="verifyCode" label="验证码">
+            <Input placeholder="请输入" />
+          </FormItem>
+          <FormItem name="newLecturerParssword" label="新密码">
+            <Input placeholder="请输入" />
+          </FormItem>
+        </Form>
+      ),
+    });
   };
 
   const getPageTitle = (pathname: string) => {
