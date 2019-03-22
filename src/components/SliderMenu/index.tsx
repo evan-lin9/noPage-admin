@@ -45,7 +45,7 @@ export default (props: ISliderMenuProps) => {
     const temp: string[] = urlToList(pathname);
     setSelectedKeys(temp);
     setOpenKeys(temp);
-  }, []);
+  },[]);
 
   const getNavMenuItems = (menus: IMenuData[]) => {
     if (!menus) {

@@ -6,7 +6,7 @@ import { Form, FormCore } from 'utils/nopage';
 import { IModelMap } from 'utils/interface';
 import { PaginationProps } from 'antd/lib/pagination';
 import { dateFormat, defaultPagination } from 'utils/config';
-import styles from './index.less';
+import './index.less';
 
 export interface INoPageProps extends SubscriptionAPI {
   createText?: string;
@@ -17,7 +17,7 @@ export interface INoPageProps extends SubscriptionAPI {
   loading: boolean;
   pagination: PaginationProps;
   rowKey?: string;
-  filterForm?: ReactNode
+  filterForm?: ReactNode;
 }
 
 export default connect(({ page, loading }: IModelMap) => ({
@@ -47,20 +47,18 @@ export default connect(({ page, loading }: IModelMap) => ({
     });
   };
 
-  const onChange = ({ current, pageSize }: {current: number, pageSize: number}) => {
+  const onChange = ({ current, pageSize }: { current: number; pageSize: number }) => {
     onRead({
       current,
       pageSize,
     });
   };
 
-  const onSearch = (type: string) => {
-    if (type === 'reset') {
-      core.reset();
-    }
+  const onSearch = () => {
     core.validate((errors: any) => {
       if (!errors) {
         const { rangeTime, ...rest } = core.getValues();
+        console.log(rest);
         if (rangeTime) {
           rest.rangeTime = [rangeTime[0].format(dateFormat), rangeTime[1].format(dateFormat)];
         }
@@ -69,39 +67,39 @@ export default connect(({ page, loading }: IModelMap) => ({
     });
   };
 
+  const onReset = () => {
+    core.reset();
+    onSearch();
+  };
+
   return (
-    <div>
-      {
-        filterForm && (
-          <div className={styles['filter-wrapper']}>
-            <div className={styles['filter-area']}>
-              <Form direction='horizontal' core={core}>
-                {isValidElement(filterForm) ? filterForm : ''}
-              </Form>
-            </div>
-            <div className={styles['filter-control']}>
-              <Button
-                className={styles['filter-control-query']}
-                type="primary"
-                icon="search"
-                onClick={() => onSearch}
-                htmlType='button'
-              >
-                查询
-              </Button>
-              <a
-                className={styles['filter-control-clear']}
-                onClick={() => onSearch('reset')}
-              >
-                重置
-              </a>
-            </div>
+    <div className="no-page">
+      {filterForm && (
+        <div className="filter-wrapper">
+          <div className="filter-area">
+            <Form direction="horizontal" core={core}>
+              {isValidElement(filterForm) ? filterForm : ''}
+            </Form>
           </div>
-        )
-      }
+          <div className="filter-control">
+            <Button
+              className="filter-control-query"
+              type="primary"
+              icon="search"
+              onClick={onSearch}
+              htmlType="button"
+            >
+              查询
+            </Button>
+            <a className="filter-control-clear" onClick={onReset}>
+              重置查询条件
+            </a>
+          </div>
+        </div>
+      )}
       <div className="tableListOperator">
         {onCreate && (
-          <Button icon="plus" type="primary" onClick={onCreate} htmlType='button'>
+          <Button icon="plus" type="primary" onClick={onCreate} htmlType="button">
             {createText || '新建'}
           </Button>
         )}
@@ -115,5 +113,5 @@ export default connect(({ page, loading }: IModelMap) => ({
         onChange={onChange}
       />
     </div>
-  )
-})
+  );
+});

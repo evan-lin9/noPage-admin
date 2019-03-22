@@ -1,4 +1,4 @@
-import * as fetch from 'dva/fetch';
+import fetch from 'dva/fetch';
 import { stringify } from 'qs';
 import { readPagination } from '.';
 import { baseUrl } from './config';

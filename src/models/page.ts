@@ -156,6 +156,12 @@ const page: Model = {
         ...payload,
       };
     },
+
+    test(state, _) {
+      return {
+        ...state,
+      }
+    }
   },
 };
 
